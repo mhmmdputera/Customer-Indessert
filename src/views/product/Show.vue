@@ -47,7 +47,11 @@
                                 </tr>
                               </tbody>
                           </table>
-                          <button @click.prevent="addToCart(product.id, calculateDiscount(product), product.weight)" class="btn btn-primary btn-lg btn-block"><i class="fa fa-shopping-cart"></i> TAMBAH KE KERANJANG</button>
+                          <button @click.prevent="checkStockAndAddToCart(product.id, calculateDiscount(product), product.weight)" 
+                                
+                                class="btn btn-primary btn-lg btn-block">
+                            <i class="fa fa-shopping-cart"></i> TAMBAH KE KERANJANG
+                        </button>
                           <br>
                           <p>*Klik 2 Kali Atau lebih Tombol Tambah Keranjang Untuk Menambah Jumlah Order</p>
                       </div>
@@ -72,6 +76,7 @@
       import { computed, onMounted } from 'vue'   // computed dan onMounted
       import { useStore } from 'vuex' // store Vuex
       import { useRoute, useRouter } from 'vue-router' // vue router
+      import Swal from 'sweetalert2'
   
       export default {
   
@@ -97,6 +102,19 @@
               const product = computed(() => {
                   return store.state.product.product
               })
+
+              function checkStockAndAddToCart(product_id, price, weight) {
+            if (product.value.stock === 0) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Stok Habis',
+                    text: 'Produk ini sedang tidak tersedia.'
+                });
+                return;
+            }
+            addToCart(product_id, price, weight);
+        }
+
   
               /**
                * function addToCart
@@ -125,7 +143,8 @@
                   router,
                   store,
                   product,
-                  addToCart
+                  addToCart,
+                  checkStockAndAddToCart
               }
   
           }
