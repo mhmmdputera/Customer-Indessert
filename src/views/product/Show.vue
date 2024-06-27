@@ -13,21 +13,21 @@
                       <div class="card-body">
                           <label class="font-weight-bold" style="font-size: 20px;"> {{ product.title }} </label>
                           <hr>
-                          <div class="price-product" id="price-product" style="font-size: 1.35rem"><span
-                                  class="font-weight-bold mr-4" style="color: green">Rp. {{ moneyFormat(calculateDiscount(product)) }}</span> 
-                              <s class="font-weight-bold" style="text-decoration-color:red">Rp. {{ moneyFormat(product.price) }}</s>
-                          </div>
+                          <div class="price-product" id="price-product" style="font-size: 1.35rem">
+                            <span class="font-weight-bold mr-4" style="color: green">Rp. {{ moneyFormat(calculateDiscount(product)) }}</span>
+                            <s v-if="product.discount > 0" class="font-weight-bold" style="text-decoration-color:red">Rp. {{ moneyFormat(product.price) }}</s>
+                        </div>
                           <table class="table table-borderless mt-3">
                               <tbody>
-                                  <tr>
-                                      <td class="font-weight-bold">DISKON</td>
-                                      <td>:</td>
-                                      <td>
-                                          <button class="btn btn-sm" style="color: #ff2f00;border-color: #ff2f00;">
-                                              DISKON {{ product.discount }} %
-                                          </button>
-                                      </td>
-                                  </tr>
+                                <tr v-if="product.discount > 0">
+                                    <td class="font-weight-bold">DISKON</td>
+                                    <td>:</td>
+                                    <td>
+                                        <button class="btn btn-sm" style="color: #ff2f00;border-color: #ff2f00;">
+                                            DISKON {{ product.discount }} %
+                                        </button>
+                                    </td>
+                                </tr>
                                   <tr>
                                       <td class="font-weight-bold">BERAT</td>
                                       <td>:</td>
