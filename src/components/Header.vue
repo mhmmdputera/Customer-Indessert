@@ -24,7 +24,7 @@
                         <div class="d-flex justify-content-end">
 
                             <div class="cart-header">
-                                <router-link :to="{name: 'cart'}" class="btn search-button btn-md" style="color: #ffffff;background-color: #c69a41;border-color: #ffffff;"><i class="fa fa-shopping-cart"></i> {{ cartCount }} | Rp. {{ moneyFormat(cartTotal) }} </router-link>
+                                <router-link :to="{name: 'cart'}" class="btn search-button btn-md" style="color: #ffffff;background-color: #c69a41;border-color: #ffffff;"><i class="fa fa-shopping-cart"></i> {{ cartQuantity }} | Rp. {{ moneyFormat(cartTotal) }} </router-link>
                             </div>
 
                             <div class="account">
@@ -68,6 +68,10 @@ import { computed, onMounted } from 'vue'
                 return store.getters['cart/cartCount']
             })
 
+            const cartQuantity = computed(() => {
+            return store.getters['cart/cartQuantity'];
+        });
+
             //cart total
             const cartTotal = computed(() => {
 
@@ -97,7 +101,8 @@ import { computed, onMounted } from 'vue'
                 store,
                 isLoggedIn,
                 cartTotal,
-                cartCount
+                cartCount,
+                cartQuantity
             }
 
         }

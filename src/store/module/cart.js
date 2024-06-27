@@ -255,6 +255,11 @@ const cart = {
         //cart total
         cartTotal(state) {
             return state.cartTotal
+        },
+
+        // cart quantity
+        cartQuantity(state) {
+            return state.cart.reduce((total, item) => total + item.quantity, 0)
         }
 
     }
