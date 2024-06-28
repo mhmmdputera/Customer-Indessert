@@ -16,7 +16,7 @@
                           <div class="price-product" id="price-product" style="font-size: 1.35rem">
                             <span class="font-weight-bold mr-4" style="color: green">Rp. {{ moneyFormat(calculateDiscount(product)) }}</span>
                             <s v-if="product.discount > 0" class="font-weight-bold" style="text-decoration-color:red">Rp. {{ moneyFormat(product.price) }}</s>
-                        </div>
+                          </div>
                           <table class="table table-borderless mt-3">
                               <tbody>
                                 <tr v-if="product.discount > 0">

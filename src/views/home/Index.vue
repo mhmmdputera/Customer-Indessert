@@ -35,7 +35,7 @@
                             {{ product.title }}
                         </router-link>
 
-                        <div class="discount mt-2" style="color: #999"><s>Rp. {{ moneyFormat(product.price) }}</s> <span
+                        <div v-if="product.discount > 0" class="discount mt-2" style="color: #999"><s>Rp. {{ moneyFormat(product.price) }}</s> <span
                                 style="background-color: darkorange" class="badge badge-pill badge-success text-white">DISKON
                                 {{ product.discount }} %</span>
                         </div>
