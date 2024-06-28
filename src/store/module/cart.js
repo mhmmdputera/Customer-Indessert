@@ -16,7 +16,9 @@ const cart = {
         cartTotal: 0,
 
         //cart weight
-        cartWeight: 0   
+        cartWeight: 0,
+        
+        quantity: 0
 
     },
 
@@ -38,12 +40,18 @@ const cart = {
             state.cartWeight = weight
         },
 
+        //get cart weight
+        CART_QUANTITY(state, quantity) {
+            state.cartQuantity = quantity
+        },
+
         //clear all cart
         CLEAR_CART(state) {
             state.cart       = []
             state.cartTotal  = 0
             state.cartWeight = 0
-        }
+            state.cartQuantity = 0
+        },
 
     },
 
@@ -71,11 +79,11 @@ const cart = {
             .then(() => {
 
                 //get dat cart
-                Api.get('/cart')
+                Api.get('/cart/quantity')
                 .then(response => {
                     
                     //commit mutation GET_CART
-                    commit('GET_CART', response.data.cart)
+                    commit('CART_QUANTITY', response.data.quantity)
 
                 })
 
@@ -150,6 +158,25 @@ const cart = {
 
         },
 
+        //cart quantity
+        cartQuantity({ commit }) {
+
+            //get data token dan user
+            const token = localStorage.getItem('token')
+
+            //set axios header dengan type Authorization + Bearer token
+            Api.defaults.headers.common['Authorization'] = "Bearer " + token
+
+            Api.get('/cart/quantity')
+            .then(response => {
+                
+                //commit mutation CART_WEIGHT
+                commit('CART_QUANTITY', response.data.quantity)
+
+            })
+
+        },
+
         //action remove cart
         removeCart({ commit }, cart_id) {
 
@@ -186,6 +213,14 @@ const cart = {
                 .then(response => {
                     
                     commit('CART_WEIGHT', response.data.total)
+
+                })
+
+                //get total cart weight
+                Api.get('/cart/quantity')
+                .then(response => {
+                    
+                    commit('CART_QUANTITY', response.data.quantity)
 
                 })
 
@@ -259,7 +294,7 @@ const cart = {
 
         // cart quantity
         cartQuantity(state) {
-            return state.cart.reduce((total, item) => total + item.quantity, 0)
+            return state.cartQuantity
         }
 
     }

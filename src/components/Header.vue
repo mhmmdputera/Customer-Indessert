@@ -94,6 +94,9 @@ import { computed, onMounted } from 'vue'
 
                 //saat mounted, akan memanggil action "cartTotal" di module "cart"
                 store.dispatch('cart/cartTotal')
+
+                //saat mounted, akan memanggil action "cartTotal" di module "cart"
+                store.dispatch('cart/cartQuantity')
             })
 
 

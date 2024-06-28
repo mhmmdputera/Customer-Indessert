@@ -48,6 +48,7 @@
             </div>
         </div>
     </div>
+    
 </template>
 
 <script>
@@ -105,4 +106,5 @@ export default {
     font-size: 1.5em;
     font-weight: bold;
 }
+
 </style>

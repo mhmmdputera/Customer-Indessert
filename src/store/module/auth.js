@@ -130,7 +130,7 @@ const auth = {
                 /**
                 * commit ke module cart, untuk set mutation dan state cart menjadi kosong
                 */
-                commit('cart/GET_CART', 0, { root: true }) // <-- kita tambahkan root menjadi true, karena beda modulue
+                commit('cart/CART_QUANTITY', 0, { root: true }) // <-- kita tambahkan root menjadi true, karena beda modulue
                 commit('cart/TOTAL_CART', 0, { root: true }) // <-- kita tambahkan root menjadi true, karena beda modulue
 
                 //di atas kita set data-nya menjadi 0
@@ -182,11 +182,11 @@ const auth = {
              */
 
             //get dat cart
-            Api.get('/cart')
+            Api.get('/cart/quantity')
             .then(response => {
                                 
                 //commit mutation GET_CART
-                commit('cart/GET_CART', response.data.cart, { root: true }) // <-- kita tambahkan root menjadi true, karena beda modulue
+                commit('cart/CART_QUANTITY', response.data.quantity, { root: true }) // <-- kita tambahkan root menjadi true, karena beda modulue
 
             })
 

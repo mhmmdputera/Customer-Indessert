@@ -3,6 +3,7 @@
     <HeaderComponent />
         <router-view />
     <FooterComponent />
+    <WhatsAppButton />
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 
   import HeaderComponent from './components/Header.vue'
   import FooterComponent from './components/Footer.vue'
+  import WhatsAppButton from './components/WhatsAppButton.vue'
 
   export default {
 
@@ -17,7 +19,8 @@
 
     components: {
       HeaderComponent,
-      FooterComponent
+      FooterComponent,
+      WhatsAppButton
     }
 
   }
