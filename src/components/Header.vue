@@ -8,6 +8,7 @@
                             <span class="logo"><i class="fa fa-apple-alt"></i> INDESSERT STORE </span>
                         </router-link>
                     </div>
+                    <p> Tes Upload Ke github</p>
                     <div class="col-md-5 d-none d-md-block">
                         <form class="search-wrap">
                             <div class="input-group w-100"><input type="text" class="form-control search-form"
