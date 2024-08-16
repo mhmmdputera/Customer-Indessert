@@ -416,20 +416,17 @@
                 }
 
                 function fetchCustomerData() {
-            Api.get('/customer')
-                .then(response => {
-                    if (response.data && response.data.customer) {
-                        const customer = response.data.customer;
-                        state.name = customer.name || '';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching customer data:', error);
-                });
-        }
-
-
-                
+                    Api.get('/customer')
+                        .then(response => {
+                            if (response.data && response.data.customer) {
+                                const customer = response.data.customer;
+                                state.name = customer.name || '';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching customer data:', error);
+                        });
+                }   
 
                 return {
                     carts,              // <-- state carts
@@ -441,7 +438,6 @@
                     kabupatens,
                     getKecamatans,
                     getTotalBayar,
-                   
                     checkout,  
                     fetchCustomerData     
                     

@@ -1,5 +1,7 @@
 //import global API
 import Api from '../../api/Api'
+import Swal from 'sweetalert2';
+
 
 const product = {
 
@@ -65,8 +67,20 @@ const product = {
 
             }).catch(error => {
 
-                //show error log dari response
-                console.log(error)
+                 //menangani jika produk tidak ditemukan atau status tutup
+            if (error.response && error.response.status === 404) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Produk tidak tersedia',
+                    text: 'Produk ini sedang kosong atau sudah ditutup.',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    // Redirect pengguna ke halaman utama atau halaman lain
+                    this.$router.push({ name: 'home' });
+                });
+            } else {
+                console.log(error);
+            }
 
             })
         }

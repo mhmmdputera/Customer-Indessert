@@ -7,7 +7,7 @@
             <div class="col-md-9 mb-4">
                 <div class="card border-0 rounded shadow">
                     <div class="card-body">
-                        <h5 class="font-weight-bold"> <i class="fas fa-shopping-cart"></i> DETAIL ORDER</h5>
+                        <h5 class="font-weight-bold"> <i class="fas fa-shopping-cart"></i> DETAIL PRE-ORDER</h5>
                         <hr>
                         <table class="table table-bordered">
                             <tr>
@@ -102,7 +102,7 @@
 
                 <div class="card border-0 rounded shadow mt-4">
                     <div class="card-body">
-                        <h5><i class="fa fa-shopping-cart"></i> DETAIL ORDER</h5>
+                        <h5><i class="fa fa-shopping-cart"></i> DETAIL PRE-ORDER</h5>
                         <hr>
                         <table class="table"
                             style="border-style: solid !important;border-color: rgb(198, 206, 214) !important;">
