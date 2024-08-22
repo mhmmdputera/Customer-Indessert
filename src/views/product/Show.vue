@@ -124,9 +124,12 @@
                   //check token terlebih dahulu
                   const token = store.state.auth.token
   
-                  if(!token) {
-                      return router.push({name: 'login'})
-                  }
+                  if (!token) {
+        return router.push({ 
+            name: 'login', 
+            query: { redirect: route.fullPath } 
+        });
+    }
   
                   //panggil action addToCart di module cart
                   store.dispatch('cart/addToCart', {

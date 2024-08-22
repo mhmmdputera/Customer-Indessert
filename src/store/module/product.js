@@ -72,7 +72,7 @@ const product = {
                 Swal.fire({
                     icon: 'error',
                     title: 'Produk tidak tersedia',
-                    text: 'Produk ini sedang kosong atau sudah ditutup.',
+                    text: 'Produk ini sedang kosong!!',
                     confirmButtonText: 'OK'
                 }).then(() => {
                     // Redirect pengguna ke halaman utama atau halaman lain

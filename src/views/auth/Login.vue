@@ -85,7 +85,8 @@ import { useRouter } from 'vue-router'
                 })
                 .then(() => {
                     //redirect ke dashboard
-                    router.push({name: 'dashboard'})
+                    const redirect = router.currentRoute.value.query.redirect || { name: 'dashboard' };
+            router.push(redirect);
                 }).catch(error => {
                     //assign validaation message
                     validation.value = error
