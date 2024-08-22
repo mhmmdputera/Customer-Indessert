@@ -45,6 +45,17 @@
                                             style="font-size: 14px;border-radius: .3rem;padding: .25em .5em .2em;">{{ product.stock }}</span>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td class="font-weight-bold">BAHAN</td>
+                                    <td>:</td>
+                                    <td>
+                                        <span v-for="(bahan, index) in product.bahan.split(',')" :key="index" class="badge badge-pill badge-info"
+                                            style="font-size: 14px;border-radius: .3rem;padding: .25em .5em .2em;margin-right: 5px; background-color: #c69a41; color: white;">
+                                            {{ bahan.trim() }}
+                                        </span>
+                                    </td>
+                                </tr>
+
                               </tbody>
                           </table>
                           <button @click.prevent="checkStockAndAddToCart(product.id, calculateDiscount(product), product.weight)" 
@@ -125,11 +136,11 @@
                   const token = store.state.auth.token
   
                   if (!token) {
-        return router.push({ 
-            name: 'login', 
-            query: { redirect: route.fullPath } 
-        });
-    }
+                        return router.push({ 
+                            name: 'login', 
+                            query: { redirect: route.fullPath } 
+                        });
+                    }
   
                   //panggil action addToCart di module cart
                   store.dispatch('cart/addToCart', {
