@@ -2,18 +2,15 @@
     <footer style="background: #ffffff;border-top: 5px solid #c69a41;" class="pt-5">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-5 mb-4">
-                    <h4 class="font-weight-bold">TENTANG</h4>
-                    <hr style="border-top: 3px solid rgb(226 232 240);border-radius:.5rem">
-                    <p>
-                        Toko Online Shopping/Store Dessert di Kandangan. Jual Beli Aman & Harga Termurah! Belanja
-                        sekarang.
-                    </p>
-                    <div class="social">    
-                        <a href="https://www.instagram.com/in.dessert_/" class="mr-4" style="color: #de2fb8;"> <i class="fab fa-instagram fa-2x"></i></a>
-                    </div>
-                </div>
                 <div class="col-md-3 mb-4">
+                    <h4 class="font-weight-bold">QUICK LINKS</h4>
+                    <hr style="border-top: 3px solid rgb(226 232 240);border-radius:.5rem">
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li><router-link to="/tentang" style="color: #000000;">Tentang</router-link></li>
+                        <li><router-link to="/info-produk" style="color: #000000;">Informasi Produk</router-link></li>
+                    </ul>
+                </div>
+                <div class="col-md-5 mb-4">
                     <h4 class="font-weight-bold">PEMBAYARAAN</h4>
                     <hr style="border-top: 3px solid rgb(226 232 240);border-radius:.5rem">
                     <div class="row">

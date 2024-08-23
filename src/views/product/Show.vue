@@ -45,7 +45,7 @@
                                             style="font-size: 14px;border-radius: .3rem;padding: .25em .5em .2em;">{{ product.stock }}</span>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr v-if="product.bahan" >
                                     <td class="font-weight-bold">BAHAN</td>
                                     <td>:</td>
                                     <td>

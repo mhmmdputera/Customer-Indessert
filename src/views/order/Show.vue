@@ -46,6 +46,7 @@
                                     Rp. {{ detailOrder.cost_ongkir  }}
                                 </td>
                             </tr>
+                            <!-- code untuk kecamatan -->
                             <tr>
                                 <td>
                                     ALAMAT LENGKAP

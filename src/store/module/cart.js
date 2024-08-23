@@ -243,7 +243,7 @@ const cart = {
                     kabupaten:   data.kabupaten_id,
                     kecamatan:       data.kecamatan_id,
                     address:    data.address,
-                    grand_total:data.grandTotal
+                    grand_total: data.grandTotal
 
                 })
                 .then(response => {

@@ -89,6 +89,16 @@ const routes = [
         //chek is loggedIn
         requiresAuth: true
       }
+    },
+    {
+      path: '/tentang',
+      name: 'tentang',
+      component: () => import(/* webpackChunkName: "cart" */ '../views/informasi/Tentang.vue'),
+    },
+    {
+      path: '/info-produk',
+      name: 'info-produk',
+      component: () => import(/* webpackChunkName: "cart" */ '../views/informasi/Produk.vue'),
     }
 ]
 
