@@ -46,7 +46,11 @@
                                     Rp. {{ detailOrder.cost_ongkir  }}
                                 </td>
                             </tr>
-                            <!-- code untuk kecamatan -->
+                            <tr>
+                                <td>KECAMATAN</td>
+                                <td>:</td>
+                                <td>{{ kecamatanName }}</td>
+                            </tr>
                             <tr>
                                 <td>
                                     ALAMAT LENGKAP
@@ -65,6 +69,22 @@
                                     Rp. {{ detailOrder.grand_total  }}
                                 </td>
                             </tr>
+                            <!-- Tambahkan kondisi untuk status pembayaran success -->
+                            <tr v-if="detailOrder.status === 'success'">
+                                <td>METODE PEMBAYARAN</td>
+                                <td>:</td>
+                                <td>Bank Transfer/Virtual Account</td>
+                            </tr>
+                            <tr v-if="detailOrder.status === 'success'">
+                                <td>BANK TUJUAN</td>
+                                <td>:</td>
+                                <td>Bank BRI</td>
+                            </tr>
+                            <tr v-if="detailOrder.status === 'success'">
+                                <td>BANK A/N</td>
+                                <td>:</td>
+                                <td>Hernida Hasanah</td>
+                            </tr>
                             <tr v-if="detailOrder.status === 'success'">
                                 <td>
                                     KONFIRMASI PESANAN
@@ -79,7 +99,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr v-if="detailOrder.status !== 'expired'">
                                 <td>
                                     STATUS PEMBAYARAN
                                 </td>
@@ -94,6 +114,19 @@
                                         class="btn btn-warning">{{ detailOrder.status }}</button>
                                     <button v-else-if="detailOrder.status == 'failed'"
                                         class="btn btn-danger">{{ detailOrder.status }}</button>
+                                </td>
+                            </tr>
+                            <tr v-if="detailOrder.status === 'pending'">
+                                <td>BATAS WAKTU PEMBAYARAN</td>
+                                <td>:</td>
+                                <td v-if="timeRemaining > 0">{{ formatTime(timeRemaining) }}</td>
+                                <td v-else>expired</td>
+                            </tr>
+                            <tr v-if="detailOrder.status == 'expired'">
+                                <td>STATUS PEMBAYARAN</td>
+                                <td>:</td>
+                                <td>
+                                <button class="expired-message">Expired</button>
                                 </td>
                             </tr>
                             
@@ -162,9 +195,10 @@
     //import customer menu component
     import Swal from 'sweetalert2'
     import CustomerMenu from '../../components/CustomerMenu.vue'
-    import { computed, onMounted, reactive } from 'vue'
+    import { computed, onMounted, reactive, ref } from 'vue'
     import { useStore } from 'vuex'
     import { useRoute, useRouter } from 'vue-router'
+    import moment from 'moment';
 
     export default {
 
@@ -189,7 +223,7 @@
 
                 //panggil action "detailOrder" di dalam module "order" di Vuex
                 store.dispatch('order/detailOrder', route.params.snap_token)
-
+                startCountdown();
             })
 
             //computed
@@ -215,6 +249,46 @@
             const exportPdf = () => {
                 store.dispatch('order/exportPdf', route.params.snap_token);
             };
+
+            // Hardcode kecamatan
+            const kecamatanName = computed(() => {
+                const kecamatanId = detailOrder.value.kecamatan; // Ambil ID kecamatan dari detailOrder
+                switch (kecamatanId) {
+                    case 1:
+                        return 'Kandangan';
+                    case 2:
+                        return 'Padang Batung';
+                    case 3:
+                        return 'Simpur';
+                    case 4:
+                        return 'Sungai Raya';
+                    default:
+                        return 'Kecamatan tidak diketahui';
+                }
+            });
+
+            const timeRemaining = ref(0);
+
+            const startCountdown = () => {
+                const paymentDeadline = moment(detailOrder.value.created_at).add(15, 'minutes');
+                const interval = setInterval(() => {
+                    const now = moment();
+                    const diff = paymentDeadline.diff(now, 'seconds');
+                    if (diff <= 0) {
+                        clearInterval(interval);
+                        detailOrder.value.status = 'expired';
+                    } else {
+                        timeRemaining.value = diff;
+                    }
+                }, 1000);
+            }
+
+            const formatTime = (seconds) => {
+                const h = Math.floor(seconds / 3600);
+                const m = Math.floor((seconds % 3600) / 60);
+                const s = seconds % 60;
+                return `${h}h ${m}m ${s}s`;
+            }
 
             // function payment "Midtrans"
             function payment(snap_token) {
@@ -293,7 +367,10 @@
                 confirmOrderReceived,
                 confirmCancelOrder,
                 status,
-                exportPdf
+                exportPdf,
+                kecamatanName,
+                timeRemaining,
+                formatTime
             }
 
         }
@@ -319,4 +396,14 @@
         padding: 10px;
         border-radius: 5px;
     }
+
+.expired-message {
+    color: white;
+    background-color: #c69a41; /* Warna merah untuk menunjukkan expired */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
 </style>
