@@ -158,7 +158,7 @@
                                 <div class="form-group">
                                     <label class="font-weight-bold">ALAMAT LENGKAP</label>
                                     <textarea class="form-control" id="alamat" rows="3"
-                                        placeholder="Alamat Lengkap&#10;&#10;Contoh: Jl. Tanayung, Desa Pandulangan, RT.03/RW.04, Kec. Padang Batung, Hulu Sungai Selatan"
+                                        placeholder="Alamat Lengkap&#10;&#10;Contoh: Jl. Tanayung, Desa Pandulangan(Pastikan anda menulis alamat desa sesuai kecamatan), RT.03/RW.04, Kec. Padang Batung, Hulu Sungai Selatan"
                                         v-model="state.address"></textarea>
                                     <div v-if="validation.address" class="mt-2 alert alert-danger">
                                         Masukkan Alamat Lengkap
@@ -180,8 +180,6 @@
               </div>
           </div>
           
-          
-
       </div>
   </template>
   
@@ -371,6 +369,31 @@
 
                     // check if there is name, phone, address, and product weight
                     if (state.name && state.phone && state.address && cartWeight.value) {
+
+                        // Validasi nama desa sesuai kecamatan
+                        const kecamatanId = state.kecamatan_id;
+                        const address = state.address.toLowerCase();
+
+                        const validDesa = {
+                            1: ['amawang kanan', 'amawang kiri', 'amawang kiri muka', 'baluti', 'gambah dalam', 'sungai paring', 'tibung raya', 'kandangan kota', 'kandangan barat', 'kandangan utara', 'jambu hilir'],
+                            2: ['padang batung', 'pandulangan', 'tabihi', 'karang jawa', 'karang jawa muka', 'jembatan merah', 'kaliring'],
+                            3: ['wasah hulu', 'wasah tengah', 'wasah hilir', 'kapuh', 'ulin', 'simpur', 'garunggang'],
+                            4: ['asam', 'telaga bidadari', 'hamalau', 'karasikan', 'sungai raya'],
+                        };
+
+                        // Cari apakah salah satu nama desa ada di dalam string alamat
+                        const desaMatch = validDesa[kecamatanId]?.some(desa => address.includes(desa));
+
+                        if (!desaMatch) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Kesalahan Input',
+                                text: 'Nama desa tidak sesuai dengan kecamatan yang dipilih.',
+                                confirmButtonColor: '#d33',
+                                confirmButtonText: 'OK'
+                            });
+                            return;
+                        }
                         
                         // define variable
                         let data = {
